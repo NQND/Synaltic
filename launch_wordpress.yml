@@ -1,0 +1,19 @@
+---
+- name: Pull wordpress site
+  hosts: wordpress
+  tasks:
+    - name: "Launch database container"
+      docker:
+        name: db
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: example
+
+    - name: "Launch wordpress container"
+      docker:
+        name: wordpress
+        image: wordpress:latest
+        links:
+          - db:mysql
+        ports:
+          - 8080:80

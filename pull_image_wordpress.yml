@@ -1,0 +1,8 @@
+---
+- name: Pull WordPress docker image
+  hosts: wordpress
+  tasks:
+  - name: pull
+    docker_image:
+      name: wordpress:latest
+

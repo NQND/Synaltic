@@ -1,0 +1,50 @@
+--- 
+- hosts: all
+  become: true
+  tasks:
+    - name: Update apt repo and cache
+      apt:
+        update_cache=yes
+        cache_valid_time=3600
+    - name: Install apt-transport-https
+      apt:
+        name=apt-transport-https
+        state=latest
+    - name: Install ca-certificates
+      apt:
+        name=ca-certificates
+        state=latest
+    - name: Install curl
+      apt:
+        name=curl
+        state=latest
+    - name: Install gnupg2
+      apt:
+        name=gnupg2
+        state=latest
+    - name: Install software-properties-common
+      apt:
+        name=software-properties-common
+        state=latest
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+        state: present
+    - name: Update apt repo and cache (bis)
+      apt: update_cache=yes cache_valid_time=3600
+    - name: Install containerd.io
+      apt:
+        name=containerd.io
+        state=latest
+    - name: Install docker-ce-cli
+      apt:
+        name=docker-ce-cli
+        state=latest
+    - name: Install docker-ce
+      apt:
+        name=docker-ce
+        state=latest
